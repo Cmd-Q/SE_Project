@@ -6,16 +6,17 @@ import java.awt.*;
  * Created by Charles on 2/15/2016.
  */
 public class Player {
-    protected int x;
+    protected int up;
 
-    protected int y;
+    protected int down;
 
     protected int rotation;
 
     private int animation;
 
-    public Player() {
-
+    public Player(int up, int down) {
+        this.up = up;
+        this.down = down;
     }
 
     public void draw(Graphics2D g, Game game){
