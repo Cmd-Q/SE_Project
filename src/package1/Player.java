@@ -13,13 +13,19 @@ import java.awt.geom.Rectangle2D;
  * Created by Charles on 2/15/2016.
  */
 public class Player extends JPanel implements ActionListener,KeyListener {
-    protected double x = 0,y = 0,velX = 2,velY = 2;
+
     Timer t = new Timer(5,this);
 
-//    protected int up;
-//    protected int down;
-//    protected int rotation;
-//    private int animation;
+    private static int SHIPSIZE = 40;
+    private static int BOARDWIDE = 600;
+    private static int BOARDHIGH = 600;
+    private final static int X_LEFTBOUND = BOARDWIDE-BOARDWIDE;
+    private final static int X_RIGHTBOUND = BOARDWIDE;
+    private final static int Y_UPBOUND = BOARDHIGH-BOARDHIGH;
+    private final static int Y_DOWNBOUND = BOARDHIGH;
+    private static int velocity = 2;
+
+    double x=X_RIGHTBOUND/2,y=Y_DOWNBOUND/2-SHIPSIZE,velX=velocity,velY=velocity;
 
     public Player() {
         t.start();
@@ -28,19 +34,19 @@ public class Player extends JPanel implements ActionListener,KeyListener {
         setFocusable(true);
     }
     public void moveUp(){
-        velY = -2.5;
+        velY = -velocity;
         velX = 0;
     }
     public void moveDown(){
-        velY = 2.5;
+        velY = velocity;
         velX = 0;
     }
     public void moveLeft(){
-        velX = -2.5;
+        velX = -velocity;
         velY = 0;
     }
     public void moveRight(){
-        velX = 2.5;
+        velX = velocity;
         velY = 0;
     }
 
@@ -64,8 +70,21 @@ public class Player extends JPanel implements ActionListener,KeyListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if(x <= X_LEFTBOUND - SHIPSIZE){
+            x = X_RIGHTBOUND-SHIPSIZE;
+        }
 
-
+        if(x >= X_RIGHTBOUND){
+            x = X_LEFTBOUND;
+        }
+        if(y <= Y_UPBOUND - SHIPSIZE) {
+            y = Y_DOWNBOUND-SHIPSIZE;
+        }
+        if(y >= Y_DOWNBOUND){
+            y = Y_UPBOUND;
+        }
+        x += velX;
+        y += velY;
         repaint();
     }
 
