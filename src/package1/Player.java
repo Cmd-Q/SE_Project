@@ -21,13 +21,13 @@ public class Player extends JPanel implements ActionListener,KeyListener {
     private static int SHIPSIZE = 50;
     private static int BOARDWIDE = 600;
     private static int BOARDHIGH = 600;
-    private final static int X_LEFTBOUND = BOARDWIDE-BOARDWIDE;
+    private final static int X_LEFTBOUND = 0;
     private final static int X_RIGHTBOUND = BOARDWIDE;
-    private final static int Y_UPBOUND = BOARDHIGH-BOARDHIGH;
+    private final static int Y_UPBOUND = 0;
     private final static int Y_DOWNBOUND = BOARDHIGH;
-    private static int velocity = 2;
+    private static int velocity = 9;
 
-    int x=X_RIGHTBOUND/2,y=Y_DOWNBOUND/2-SHIPSIZE,velX=velocity,velY=velocity;
+    int x=X_RIGHTBOUND/2-(SHIPSIZE/2),y=Y_DOWNBOUND/2-(SHIPSIZE/2),velX=0,velY=0;
 
     public Player() {
         t.start();
