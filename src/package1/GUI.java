@@ -13,8 +13,13 @@ import javax.swing.JPanel;
  */
 public class GUI extends JPanel{
 
-
-
-
-
-}
+    public static void main(String args[]){
+            Player s = new Player();
+            JFrame f = new JFrame();
+            f.add(s);
+            f.setSize(600,600);
+            f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            f.setVisible(true);
+            f.setTitle("MOVING BOX!");
+        }
+    }
