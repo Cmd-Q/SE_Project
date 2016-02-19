@@ -1,19 +1,17 @@
 package package1;
 
 import javax.swing.*;
+import javax.swing.JComponent;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.geom.Line2D;
-import java.awt.geom.Rectangle2D;
-
+import java.awt.geom.AffineTransform;
 /**
  * Created by Charles on 2/15/2016.
  */
 public class Player extends JPanel implements ActionListener,KeyListener {
-
     Timer t = new Timer(5,this);
     public ImageIcon ship = new ImageIcon("spaceship.png");
     boolean rightPressed=false, leftPressed=false, downPressed=false, upPressed=false;
@@ -37,11 +35,14 @@ public class Player extends JPanel implements ActionListener,KeyListener {
     }
 
     public void paintComponent(Graphics g){
+        AffineTransform transformer = new AffineTransform();
+        transformer.translate(1,1);
+        transformer.scale(1,1);
+
         super.paintComponent(g);
-        /* Displays .png image of a spaceship, this could be used later to move the ship.png around
-         * instead of the drawn blue box
-         */
         Graphics2D g2 = (Graphics2D) g;
+        g2.setTransform(transformer);
+       // g2.rotate(4,x,y);
         ship.paintIcon(this, g2, x, y);
         //Rectangle2D box = new Rectangle2D.Double(x,y,40,40);
         //g2.setPaint(Color.BLUE);
@@ -49,11 +50,7 @@ public class Player extends JPanel implements ActionListener,KeyListener {
         t.start();
     }
 
-//    public void draw(Graphics2D g, Game game){
-//        g.drawLine(-10, -8, 10, 0);
-//        g.drawLine(-10, 8, 10, 0);
-//        g.drawLine(-6, -6, -6, 6);
-//    }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -78,6 +75,7 @@ public class Player extends JPanel implements ActionListener,KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
+        // UP
         if((code == KeyEvent.VK_UP) && (downPressed == false)){
             velY = -2;
             upPressed = true;
@@ -86,6 +84,8 @@ public class Player extends JPanel implements ActionListener,KeyListener {
             velY = 0;
             upPressed = true;
         }
+
+        // DOWN
         if((code == KeyEvent.VK_DOWN) && (upPressed == false)){
             velY = 2;
             downPressed = true;
@@ -94,6 +94,8 @@ public class Player extends JPanel implements ActionListener,KeyListener {
             velY = 0;
             downPressed = true;
         }
+
+        // LEFT
         if((code == KeyEvent.VK_LEFT) && (rightPressed == false)){
             velX = -2;
             leftPressed = true;
@@ -102,6 +104,8 @@ public class Player extends JPanel implements ActionListener,KeyListener {
             velX = 0;
             leftPressed = true;
         }
+
+        // RIGHT
         if((code == KeyEvent.VK_RIGHT) && (leftPressed == false)){
             velX = 2;
             rightPressed = true;
