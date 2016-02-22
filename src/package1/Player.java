@@ -1,19 +1,22 @@
 package package1;
 
 import javax.swing.*;
-import javax.swing.JComponent;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.geom.AffineTransform;
+import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
+
 /**
  * Created by Charles on 2/15/2016.
  */
 public class Player extends JPanel implements ActionListener,KeyListener {
+
     Timer t = new Timer(5,this);
     public ImageIcon ship = new ImageIcon("spaceship.png");
+    public ImageIcon background = new ImageIcon("space_bg.png");
     boolean rightPressed=false, leftPressed=false, downPressed=false, upPressed=false;
 
     private static int SHIPSIZE = 50;
@@ -24,9 +27,13 @@ public class Player extends JPanel implements ActionListener,KeyListener {
     private final static int Y_UPBOUND = 0;
     private final static int Y_DOWNBOUND = BOARDHIGH;
     private static int velocity = 9;
+    private static double currentAngle;
 
     int x=X_RIGHTBOUND/2-(SHIPSIZE/2),y=Y_DOWNBOUND/2-(SHIPSIZE/2),velX=0,velY=0;
 
+    /**
+     *
+     */
     public Player() {
         t.start();
         addKeyListener(this);
@@ -34,16 +41,21 @@ public class Player extends JPanel implements ActionListener,KeyListener {
         setFocusable(true);
     }
 
+    /**
+     *
+     * @param g
+     */
     public void paintComponent(Graphics g){
-        AffineTransform transformer = new AffineTransform();
-        transformer.translate(1,1);
-        transformer.scale(1,1);
-
         super.paintComponent(g);
+        /* Displays .png image of a spaceship, this could be used later to move the ship.png around
+         * instead of the drawn blue box
+         */
+        Graphics2D g5 = (Graphics2D) g;
+        background.paintIcon(this, g5, 0, 0);
         Graphics2D g2 = (Graphics2D) g;
-        g2.setTransform(transformer);
-       // g2.rotate(4,x,y);
         ship.paintIcon(this, g2, x, y);
+
+
         //Rectangle2D box = new Rectangle2D.Double(x,y,40,40);
         //g2.setPaint(Color.BLUE);
         //g2.fill(box);
@@ -51,7 +63,14 @@ public class Player extends JPanel implements ActionListener,KeyListener {
     }
 
 
+    //    public void draw(Graphics2D g, Game game){
+//        g.drawLine(-10, -8, 10, 0);
+//        g.drawLine(-10, 8, 10, 0);
+//        g.drawLine(-6, -6, -6, 6);
+//    }
+    /*
 
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if(x <= X_LEFTBOUND - SHIPSIZE){
@@ -72,10 +91,18 @@ public class Player extends JPanel implements ActionListener,KeyListener {
         repaint();
     }
 
+    public void rotate() {
+        //rotate 5 degrees at a time
+        currentAngle+=5.0;
+        if (currentAngle >= 360.0) {
+            currentAngle = 0;
+        }
+        repaint();
+    }
+
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
-        // UP
         if((code == KeyEvent.VK_UP) && (downPressed == false)){
             velY = -2;
             upPressed = true;
@@ -84,8 +111,6 @@ public class Player extends JPanel implements ActionListener,KeyListener {
             velY = 0;
             upPressed = true;
         }
-
-        // DOWN
         if((code == KeyEvent.VK_DOWN) && (upPressed == false)){
             velY = 2;
             downPressed = true;
@@ -94,18 +119,15 @@ public class Player extends JPanel implements ActionListener,KeyListener {
             velY = 0;
             downPressed = true;
         }
-
-        // LEFT
         if((code == KeyEvent.VK_LEFT) && (rightPressed == false)){
             velX = -2;
             leftPressed = true;
+            // ship.paintIcon(this, g2, x, y);
         }
         if((code == KeyEvent.VK_LEFT) && (rightPressed == true)){
             velX = 0;
             leftPressed = true;
         }
-
-        // RIGHT
         if((code == KeyEvent.VK_RIGHT) && (leftPressed == false)){
             velX = 2;
             rightPressed = true;
@@ -122,10 +144,12 @@ public class Player extends JPanel implements ActionListener,KeyListener {
         if((code == KeyEvent.VK_UP) && (downPressed == false)){
             velY = 0;
             upPressed = false;
+            rotate();
         }
         if((code == KeyEvent.VK_UP) && (downPressed == true)){
             velY = 2;
             upPressed = false;
+            rotate();
         }
         if((code == KeyEvent.VK_DOWN) && (upPressed == false)){
             velY = 0;

@@ -4,59 +4,149 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.geom.Ellipse2D;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.geom.Rectangle2D;
-import java.security.Key;
-
+import java.util.Random;
 
 /**
- * Created by Pierce on 2/17/16.
+ * Created by Charles on 2/20/2016.
  */
-public class Asteroid extends JPanel implements ActionListener {
-    private static int ASTEROIDSIZE = 25;
+public class Asteroid extends JPanel implements ActionListener, KeyListener {
+    Timer t2 = new Timer(10, (ActionListener) this);
+    public ImageIcon asteroid = new ImageIcon("asteroid.png");
+    public ImageIcon asteroid2 = new ImageIcon("asteroid.png");
+    public ImageIcon background = new ImageIcon("space_bg.png");
+
+    private static int SHIPSIZE = 40;
     private static int BOARDWIDE = 600;
     private static int BOARDHIGH = 600;
     private final static int X_LEFTBOUND = 0;
     private final static int X_RIGHTBOUND = BOARDWIDE;
     private final static int Y_UPBOUND = 0;
     private final static int Y_DOWNBOUND = BOARDHIGH;
+    private static int velocity = 5;
+    private static double currentAngle;
+    private Random rnd;
 
-    int x = X_RIGHTBOUND / 2 - (ASTEROIDSIZE / 2), y = Y_DOWNBOUND / 2 - (ASTEROIDSIZE / 2), velX = 0, velY = 0;
-
-    Timer t = new Timer(5, this);
+    int x=X_RIGHTBOUND/2-(SHIPSIZE/2),y=Y_DOWNBOUND/2-(SHIPSIZE/2);
+    private double velX=0,velY=0;
 
     public Asteroid() {
-        t.start();
+        t2.start();
         setFocusTraversalKeysEnabled(false);
         setFocusable(true);
+
     }
 
-    public void paintComponent(Graphics g) {
+    /**
+     *
+     * @param g
+     */
+    public void paintComponent(Graphics g){
         super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D) g;
-        g2.setPaint(Color.CYAN);
-        Rectangle2D asteroidShape = new Rectangle2D.Double(x, y, ASTEROIDSIZE, ASTEROIDSIZE);
-        g2.fill(asteroidShape);
-        t.start();
+
+        Graphics2D g5 = (Graphics2D) g;
+        background.paintIcon(this, g5, 0 , 0);
+
+        Graphics2D g3 = (Graphics2D) g;
+        asteroid.paintIcon(this, g3, x , y);
+
+        Graphics2D g4 = (Graphics2D) g;
+        asteroid2.paintIcon(this, g4, x , y);
+
+        moveUp(g3);
+        moveLeft(g3);
+//        moveUp(g4);
+//        moveRight(g4);
+        repaint();
     }
 
-    @Override
+    /**
+     *
+     */
+    public void multiAstroid(){
+
+    }
+
+    /**
+     *
+     * @param g
+     */
+    public void moveUp(Graphics2D g){
+        rnd = new Random ();
+        velY = -3;
+
+    }
+
+    /**
+     *
+     * @param g
+     */
+    public void moveDown(Graphics2D g){
+        velY = 2.5;
+
+    }
+
+    /**
+     *
+     * @param g
+     */
+    public void moveLeft(Graphics2D g){
+        velX = -1;
+
+    }
+
+    /**
+     *
+     * @param g
+     */
+    public void moveRight(Graphics2D g){
+        velX = 2.5;
+
+    }
+
+
+
+//    @Override
+
+    /**
+     *
+     * @param e
+     */
     public void actionPerformed(ActionEvent e) {
-        if (x <= X_LEFTBOUND - ASTEROIDSIZE) {
-            x = X_RIGHTBOUND - ASTEROIDSIZE;
+        if(x <= X_LEFTBOUND - SHIPSIZE){
+            x = X_RIGHTBOUND-SHIPSIZE;
         }
-        if (x >= X_RIGHTBOUND) {
+
+        if(x >= X_RIGHTBOUND){
             x = X_LEFTBOUND;
         }
-        if (y <= Y_UPBOUND - ASTEROIDSIZE) {
-            y = Y_DOWNBOUND - ASTEROIDSIZE;
+        if(y <= Y_UPBOUND - SHIPSIZE) {
+            y = Y_DOWNBOUND-SHIPSIZE;
         }
-        if (y >= Y_DOWNBOUND) {
+        if(y >= Y_DOWNBOUND){
             y = Y_UPBOUND;
         }
         x += velX;
         y += velY;
-        repaint();
+//        repaint();
+    }
+
+
+
+    //    @Override
+    public void keyPressed(KeyEvent e) {
+
+    }
+    //
+//    @Override
+    public void keyReleased(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
     }
 }
-
