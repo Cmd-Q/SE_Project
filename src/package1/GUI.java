@@ -29,7 +29,7 @@ public class GUI extends JPanel implements MouseListener {
         gameFrame.setJMenuBar(jMenuBar);
         gameFrame.add(jMenuBar, BorderLayout.NORTH);
         gameFrame.add(s);
-        //f.add(a);
+        //gameFrame.add(a);
         gameFrame.setSize(600, 600);
         gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gameFrame.setVisible(true);
