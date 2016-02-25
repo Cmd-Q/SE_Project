@@ -9,11 +9,15 @@ import java.awt.event.KeyListener;
 import java.awt.geom.Rectangle2D;
 import java.util.Random;
 
-/**
+/**********************************************************************
+ * Provides the game logic for an asteroid.
  * Created by Charles on 2/20/2016.
- */
-public class Asteroid extends JPanel implements ActionListener, KeyListener {
+ *********************************************************************/
+public class Asteroid extends JPanel implements ActionListener,
+        KeyListener {
+
     Timer t2 = new Timer(10, (ActionListener) this);
+
     public ImageIcon asteroid = new ImageIcon("asteroid.png");
     public ImageIcon asteroid2 = new ImageIcon("asteroid.png");
     public ImageIcon background = new ImageIcon("space_bg.png");
@@ -32,6 +36,9 @@ public class Asteroid extends JPanel implements ActionListener, KeyListener {
     int x=X_RIGHTBOUND/2-(SHIPSIZE/2),y=Y_DOWNBOUND/2-(SHIPSIZE/2);
     private double velX=0,velY=0;
 
+    /******************************************************************
+     * Constructor for the asteroid class
+     *****************************************************************/
     public Asteroid() {
         t2.start();
         setFocusTraversalKeysEnabled(false);
@@ -39,10 +46,10 @@ public class Asteroid extends JPanel implements ActionListener, KeyListener {
 
     }
 
-    /**
+    /******************************************************************
      *
      * @param g
-     */
+     *****************************************************************/
     public void paintComponent(Graphics g){
         super.paintComponent(g);
 
@@ -62,45 +69,45 @@ public class Asteroid extends JPanel implements ActionListener, KeyListener {
         repaint();
     }
 
-    /**
+    /******************************************************************
      *
-     */
+     *****************************************************************/
     public void multiAstroid(){
 
     }
 
-    /**
-     *
+    /******************************************************************
+     * Method to move up
      * @param g
-     */
+     *****************************************************************/
     public void moveUp(Graphics2D g){
         rnd = new Random ();
         velY = -3;
 
     }
 
-    /**
-     *
+    /******************************************************************
+     *Method to move down
      * @param g
-     */
+     ********************************************/
     public void moveDown(Graphics2D g){
         velY = 2.5;
 
     }
 
-    /**
-     *
+    /******************************************************************
+     *Method to move left
      * @param g
-     */
+     *****************************************************************/
     public void moveLeft(Graphics2D g){
         velX = -1;
 
     }
 
-    /**
-     *
+    /******************************************************************
+     *Method to move right
      * @param g
-     */
+     *****************************************************************/
     public void moveRight(Graphics2D g){
         velX = 2.5;
 
@@ -108,12 +115,13 @@ public class Asteroid extends JPanel implements ActionListener, KeyListener {
 
 
 
-//    @Override
 
-    /**
-     *
+
+    /******************************************************************
+     *Action performed method which provides for the wrapping of the
+     * board.
      * @param e
-     */
+     *****************************************************************/
     public void actionPerformed(ActionEvent e) {
         if(x <= X_LEFTBOUND - SHIPSIZE){
             x = X_RIGHTBOUND-SHIPSIZE;
@@ -134,13 +142,11 @@ public class Asteroid extends JPanel implements ActionListener, KeyListener {
     }
 
 
-
-    //    @Override
     public void keyPressed(KeyEvent e) {
 
     }
-    //
-//    @Override
+
+
     public void keyReleased(KeyEvent e) {
 
     }
