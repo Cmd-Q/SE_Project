@@ -19,7 +19,6 @@ public class Asteroid extends JPanel implements ActionListener,
     Timer t2 = new Timer(10, (ActionListener) this);
 
     public ImageIcon asteroid = new ImageIcon("asteroid.png");
-    public ImageIcon asteroid2 = new ImageIcon("asteroid.png");
     public ImageIcon background = new ImageIcon("space_bg.png");
 
     private static int SHIPSIZE = 40;
@@ -29,9 +28,6 @@ public class Asteroid extends JPanel implements ActionListener,
     private final static int X_RIGHTBOUND = BOARDWIDE;
     private final static int Y_UPBOUND = 0;
     private final static int Y_DOWNBOUND = BOARDHIGH;
-    private static int velocity = 5;
-    private static double currentAngle;
-    private Random rnd;
 
     int x=X_RIGHTBOUND/2-(SHIPSIZE/2),y=Y_DOWNBOUND/2-(SHIPSIZE/2);
     private double velX=0,velY=0;
@@ -59,21 +55,11 @@ public class Asteroid extends JPanel implements ActionListener,
         Graphics2D g3 = (Graphics2D) g;
         asteroid.paintIcon(this, g3, x , y);
 
-        Graphics2D g4 = (Graphics2D) g;
-        asteroid2.paintIcon(this, g4, x , y);
-
         moveUp(g3);
         moveLeft(g3);
 //        moveUp(g4);
 //        moveRight(g4);
         repaint();
-    }
-
-    /******************************************************************
-     *
-     *****************************************************************/
-    public void multiAstroid(){
-
     }
 
     /******************************************************************
