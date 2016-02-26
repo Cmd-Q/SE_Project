@@ -20,12 +20,10 @@ public class Player extends JPanel implements ActionListener,KeyListener {
     boolean rightPressed=false, leftPressed=false, downPressed=false, upPressed=false;
 
     private static int SHIPSIZE = 50;
-    private static int BOARDWIDE = 600;
-    private static int BOARDHIGH = 600;
     private final static int X_LEFTBOUND = 0;
-    private final static int X_RIGHTBOUND = BOARDWIDE;
+    private final static int X_RIGHTBOUND = 600;
     private final static int Y_UPBOUND = 0;
-    private final static int Y_DOWNBOUND = BOARDHIGH;
+    private final static int Y_DOWNBOUND = 600;
     private static int velocity = 9;
     private static double currentAngle;
 
@@ -59,7 +57,6 @@ public class Player extends JPanel implements ActionListener,KeyListener {
         //Rectangle2D box = new Rectangle2D.Double(x,y,40,40);
         //g2.setPaint(Color.BLUE);
         //g2.fill(box);
-        t.start();
     }
 
 

@@ -22,12 +22,10 @@ public class Asteroid extends JPanel implements ActionListener,
     public ImageIcon background = new ImageIcon("space_bg.png");
 
     private static int SHIPSIZE = 40;
-    private static int BOARDWIDE = 600;
-    private static int BOARDHIGH = 600;
     private final static int X_LEFTBOUND = 0;
-    private final static int X_RIGHTBOUND = BOARDWIDE;
+    private final static int X_RIGHTBOUND = 600;
     private final static int Y_UPBOUND = 0;
-    private final static int Y_DOWNBOUND = BOARDHIGH;
+    private final static int Y_DOWNBOUND = 600;
 
     int x=X_RIGHTBOUND/2-(SHIPSIZE/2),y=Y_DOWNBOUND/2-(SHIPSIZE/2);
     private double velX=0,velY=0;
@@ -67,7 +65,6 @@ public class Asteroid extends JPanel implements ActionListener,
      * @param g
      *****************************************************************/
     public void moveUp(Graphics2D g){
-        rnd = new Random ();
         velY = -3;
 
     }
